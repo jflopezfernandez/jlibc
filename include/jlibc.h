@@ -24,6 +24,11 @@
 #define JLIBC_INTERNAL
 #endif
 
+#ifndef PROJECT_INCLUDES_JLIBC_CONFIG_H
+#define PROJECT_INCLUDES_JLIBC_CONFIG_H
+#include "config.h"
+#endif /** PROJECT_INCLUDES_JLIBC_CONFIG_H */
+
 #include <jlibc/jlibc.h>
 
 #endif /** PROJECT_INCLUDES_JLIBC_INTERNAL_JLIBC_H */

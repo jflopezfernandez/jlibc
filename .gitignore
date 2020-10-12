@@ -1,6 +1,7 @@
 # Autotools Output
 /autom4te.cache/
 configure
+configure.scan
 config.status
 config.log
 Makefile

@@ -30,3 +30,7 @@ check: $(TARGET)
 .PHONY: clean
 clean:
 	$(RM) $(OBJS) $(TARGET)
+
+.PHONY: distclean
+distclean: clean
+	$(RM) Makefile
