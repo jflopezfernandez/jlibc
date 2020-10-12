@@ -36,7 +36,7 @@ void* allocate_memory_block(size_t size) {
      * as jemalloc.
      *
      */
-    void* memory_block = malloc(size_t);
+    void* memory_block = malloc(size);
 
     /**
      * Ensure that the value returned by the memory
