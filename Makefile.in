@@ -27,6 +27,10 @@ $(TARGET): $(OBJS)
 check: $(TARGET)
 	$(MAKE) -C tests/ check
 
+.PHONY: docs
+docs:
+	doxygen docs/Doxyfile
+
 .PHONY: clean
 clean: clean-tests
 	$(RM) $(OBJS) $(TARGET)

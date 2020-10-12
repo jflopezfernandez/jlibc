@@ -1,3 +1,8 @@
+# Global Tags Files
+GPATH
+GRTAGS
+GTAGS
+
 # Autotools Output
 /autom4te.cache/
 configure
@@ -6,6 +11,15 @@ config.status
 config.log
 Makefile
 **/Makefile
+include/config.h
+include/config.h.in
+
+# Doxygen Output
+docs/html
+docs/latex
+docs/man
+docs/perldoc
+docs/doxygen.log
 
 # Prerequisites
 *.d
