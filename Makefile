@@ -1,26 +1,30 @@
 
 vpath %.c src
 
-RM := rm -f
+export RM       :=  rm -f
 
-CC := gcc
-CFLAGS := -shared -std=c17 -Wall -Wextra -Wpedantic -fPIC -O0 -ggdb -g3 -fanalyzer -fsanitize=address -fstack-protector-strong
-CPPFLAGS := -Iinclude -D_GNU_SOURCE
-LDFLAGS := -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now
-LIBS :=
+export CC       :=  gcc
+export CFLAGS   := -std=c17 -Wall -Wextra -Wpedantic -fPIC -O0 -ggdb -g3 -fanalyzer -fsanitize=address -fstack-protector-strong
+export CPPFLAGS := -Iinclude -D_GNU_SOURCE
+export LDFLAGS  := -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now
+export LIBS     :=
 
-SRCS := $(notdir $(wildcard src/*.c))
-OBJS := $(patsubst %.c,%.o,$(SRCS))
+SRCS            := $(notdir $(wildcard src/*.c))
+OBJS            := $(patsubst %.c,%.o,$(SRCS))
 
-TARGET := libjc.so
+TARGET          := libjc.so
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -o $@ $^ $(LIBS)
 
 %: %.o
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $^
+
+.PHONY: check
+check: $(TARGET)
+	$(MAKE) -C tests/ check
 
 .PHONY: clean
 clean:

@@ -17,26 +17,15 @@
  *
  */
 
-#ifndef PROJECT_INCLUDES_JLIBC_H
-#define PROJECT_INCLUDES_JLIBC_H
+#ifndef PROJECT_INCLUDES_MEMORY_TEST_SUITE_H
+#define PROJECT_INCLUDES_MEMORY_TEST_SUITE_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
+/**
+ * This is the constructor for the memory module test suite,
+ * handling all of the necessary test case, suite, and
+ * suite-runner initialization.
+ *
+ */
+Suite* memory_test_suite(void);
 
-#ifndef JLIBC_INTERNAL
-    #ifndef JLIBC_API
-    #define JLIBC_API __attribute__((visibility ("default")))
-    #endif
-#else
-    #ifndef JLIBC_API
-    #define JLIBC_API
-    #endif
-#endif /** JLIBC_INTERNAL */
-
-#include <jlibc/memory.h>
-
-#endif /** PROJECT_INCLUDES_JLIBC_H */
+#endif /** PROJECT_INCLUDES_MEMORY_TEST_SUITE_H */
