@@ -2,6 +2,7 @@
 vpath %.c src
 
 export RM       :=  rm -f
+export RMDIR    :=  rm -rf
 
 export CC       :=  gcc
 export CFLAGS   := -std=c17 -Wall -Wextra -Wpedantic -fPIC -O0 -ggdb -g3 -fanalyzer -fsanitize=address -fstack-protector-strong
@@ -27,5 +28,14 @@ check: $(TARGET)
 	$(MAKE) -C tests/ check
 
 .PHONY: clean
-clean:
+clean: clean-tests
 	$(RM) $(OBJS) $(TARGET)
+
+.PHONY: clean-tests
+clean-tests:
+	$(MAKE) -C tests/ clean
+
+.PHONY: distclean
+distclean: clean
+	$(RM) config.log config.status configure
+	$(RMDIR) autom4te.cache
