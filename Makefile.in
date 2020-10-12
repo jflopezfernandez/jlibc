@@ -1,16 +1,29 @@
 
-vpath %.c src
+SHELL = /bin/sh
 
+.SUFFIXES: .c .o
+
+vpath %.c @srcdir@/src
+
+export srcdir := @srcdir@
+
+export MKDIR    := @MKDIR_P@
 export RM       :=  rm -f
 export RMDIR    :=  rm -rf
 
-export CC       :=  gcc
-export CFLAGS   := -std=c17 -Wall -Wextra -Wpedantic -fPIC -O0 -ggdb -g3 -fanalyzer -fsanitize=address -fstack-protector-strong
-export CPPFLAGS := -Iinclude -D_GNU_SOURCE
-export LDFLAGS  := -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now
-export LIBS     :=
+#export CC       :=  gcc
+#export CFLAGS   := -std=c17 -Wall -Wextra -Wpedantic -fPIC -O0 -ggdb -g3 -fanalyzer -fsanitize=address -fstack-protector-strong
+#export CPPFLAGS := -Iinclude -D_GNU_SOURCE
+#export LDFLAGS  := -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now
+#export LIBS     :=
 
-SRCS            := $(notdir $(wildcard src/*.c))
+export CC := @CC@
+export CFLAGS := @CFLAGS@
+export CPPFLAGS := -I$(srcdir)/include @CPPFLAGS@ @DEFS@
+export LDFLAGS := @LDFLAGS@
+export LIBS := @LIBS@
+
+SRCS            := $(notdir $(wildcard @srcdir@/src/*.c))
 OBJS            := $(patsubst %.c,%.o,$(SRCS))
 
 TARGET          := libjc.so
@@ -39,8 +52,13 @@ clean: clean-tests
 clean-tests:
 	$(MAKE) -C tests/ clean
 
+.PHONY: clean-docs
+clean-docs:
+	$(RM) GTAGS GRTAGS GPATH docs/doxygen.log
+	$(RMDIR) docs/{html,latex}
+
 .PHONY: distclean
-distclean: clean
+distclean: clean clean-docs
 	$(RM) config.log config.status configure configure.scan autoscan.log Makefile include/config.h{,.in}
 	$(RMDIR) autom4te.cache
 	$(MAKE) -C tests/ distclean

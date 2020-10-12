@@ -1,12 +1,12 @@
 
-vpath %.c src
+vpath %.c $(srcdir)/tests/src
 
 CFLAGS := $(CFLAGS) -L/home/jflopezfernandez/projects/c/jlibc
-CPPFLAGS := $(CPPFLAGS) -I../include -Iinclude
+CPPFLAGS := $(CPPFLAGS) -I$(srcdir)/include -I$(srcdir)/tests/include
 LDFLAGS := $(LDFLAGS) -Wl,-rpath,/home/jflopezfernandez/projects/c/jlibc
 LIBS := $(LIBS) -lcheck -ljc
 
-SRCS := $(notdir $(wildcard src/*.c))
+SRCS := $(notdir $(wildcard $(srcdir)/tests/src/*.c))
 OBJS := $(patsubst %.c,%.o,$(SRCS))
 
 TARGET := run-tests
