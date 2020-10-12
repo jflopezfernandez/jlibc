@@ -1,12 +1,11 @@
 AC_PREREQ([2.69])
 AC_INIT([jlibc], [1.0], [jflopezfernandez@gmail.com])
 
-# If possible, enable extensions to C or Posix on hosts that
-# normally disable the extensions, typically due to
-# standards- compliance namespace issues.
-#
-#AC_USE_SYSTEM_EXTENSIONS
+AM_PROG_AR
+LT_INIT
+AM_INIT_AUTOMAKE([gnu readme-alpha -Wall parallel-tests subdir-objects])
 
+AC_CONFIG_MACRO_DIRS([m4])
 AC_CONFIG_SRCDIR([src/memory.c])
 AC_CONFIG_HEADERS([include/config.h])
 
@@ -51,7 +50,6 @@ AC_FUNC_REALLOC
 AC_FUNC_STAT
 AC_FUNC_STRERROR_R
 
-AC_CONFIG_FILES([Makefile
-                 tests/Makefile])
+AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT
